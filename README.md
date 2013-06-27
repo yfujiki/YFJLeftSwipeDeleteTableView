@@ -3,7 +3,7 @@ YFJLeftSwipeDeleteTableView
 
 Drop-in UITableView subclass that supports left-swipe cell deletion like in iOS7. (works both in iOS6 and iOS7)
 
-Just grab YFJLeftSwipeDeleteTableView.(h|m) and drop in your project.
+Just grab YFJLeftSwipeDeleteTableView.(h|m) and drop in your project. You have to specify following methods in the datasource methods, but that is it.
 
 ```
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {

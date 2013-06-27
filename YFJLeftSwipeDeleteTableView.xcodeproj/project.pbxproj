@@ -19,6 +19,10 @@
 		80A0513C177CB280004E11C0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80A05124177CB280004E11C0 /* UIKit.framework */; };
 		80A05144177CB280004E11C0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 80A05142177CB280004E11C0 /* InfoPlist.strings */; };
 		80A05146177CB281004E11C0 /* YFJLeftSwipeDeleteTableViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 80A05145177CB281004E11C0 /* YFJLeftSwipeDeleteTableViewTests.m */; };
+		80A05151177CB29A004E11C0 /* YFJLeftSwipeDeleteTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 80A05150177CB29A004E11C0 /* YFJLeftSwipeDeleteTableView.m */; };
+		80A05152177CB29A004E11C0 /* YFJLeftSwipeDeleteTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 80A05150177CB29A004E11C0 /* YFJLeftSwipeDeleteTableView.m */; };
+		80A05155177CB2DF004E11C0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80A05154177CB2DF004E11C0 /* ViewController.m */; };
+		80A05156177CB2DF004E11C0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80A05154177CB2DF004E11C0 /* ViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +52,10 @@
 		80A05141177CB280004E11C0 /* YFJLeftSwipeDeleteTableViewTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "YFJLeftSwipeDeleteTableViewTests-Info.plist"; sourceTree = "<group>"; };
 		80A05143177CB280004E11C0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		80A05145177CB281004E11C0 /* YFJLeftSwipeDeleteTableViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YFJLeftSwipeDeleteTableViewTests.m; sourceTree = "<group>"; };
+		80A0514F177CB29A004E11C0 /* YFJLeftSwipeDeleteTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YFJLeftSwipeDeleteTableView.h; sourceTree = "<group>"; };
+		80A05150177CB29A004E11C0 /* YFJLeftSwipeDeleteTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YFJLeftSwipeDeleteTableView.m; sourceTree = "<group>"; };
+		80A05153177CB2DF004E11C0 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		80A05154177CB2DF004E11C0 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,10 +115,11 @@
 		80A05126177CB280004E11C0 /* YFJLeftSwipeDeleteTableView */ = {
 			isa = PBXGroup;
 			children = (
-				80A0512F177CB280004E11C0 /* AppDelegate.h */,
-				80A05130177CB280004E11C0 /* AppDelegate.m */,
+				80A05157177CB2ED004E11C0 /* Example */,
 				80A05132177CB280004E11C0 /* Images.xcassets */,
 				80A05127177CB280004E11C0 /* Supporting Files */,
+				80A0514F177CB29A004E11C0 /* YFJLeftSwipeDeleteTableView.h */,
+				80A05150177CB29A004E11C0 /* YFJLeftSwipeDeleteTableView.m */,
 			);
 			path = YFJLeftSwipeDeleteTableView;
 			sourceTree = "<group>";
@@ -142,6 +151,17 @@
 				80A05142177CB280004E11C0 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		80A05157177CB2ED004E11C0 /* Example */ = {
+			isa = PBXGroup;
+			children = (
+				80A0512F177CB280004E11C0 /* AppDelegate.h */,
+				80A05130177CB280004E11C0 /* AppDelegate.m */,
+				80A05153177CB2DF004E11C0 /* ViewController.h */,
+				80A05154177CB2DF004E11C0 /* ViewController.m */,
+			);
+			name = Example;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -241,6 +261,8 @@
 			files = (
 				80A05131177CB280004E11C0 /* AppDelegate.m in Sources */,
 				80A0512D177CB280004E11C0 /* main.m in Sources */,
+				80A05155177CB2DF004E11C0 /* ViewController.m in Sources */,
+				80A05151177CB29A004E11C0 /* YFJLeftSwipeDeleteTableView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,6 +270,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80A05156177CB2DF004E11C0 /* ViewController.m in Sources */,
+				80A05152177CB29A004E11C0 /* YFJLeftSwipeDeleteTableView.m in Sources */,
 				80A05146177CB281004E11C0 /* YFJLeftSwipeDeleteTableViewTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -358,6 +382,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "YFJLeftSwipeDeleteTableView/YFJLeftSwipeDeleteTableView-Prefix.pch";
 				INFOPLIST_FILE = "YFJLeftSwipeDeleteTableView/YFJLeftSwipeDeleteTableView-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -371,6 +396,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "YFJLeftSwipeDeleteTableView/YFJLeftSwipeDeleteTableView-Prefix.pch";
 				INFOPLIST_FILE = "YFJLeftSwipeDeleteTableView/YFJLeftSwipeDeleteTableView-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

@@ -3,9 +3,6 @@
 //
 //  Provides drop-in TableView component that allows to show iOS7 style left-swipe delete
 //
-//  NOTE : In the following datasource method, you have to return NO for this tableView to work properly
-//         - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath;
-//
 //  Created by Yuichi Fujiki on 6/27/13.
 //  Copyright (c) 2013 Yuichi Fujiki. All rights reserved.
 //
@@ -58,20 +55,23 @@ const static char * kYFJLeftSwipeDeleteTableViewCellIndexPathKey = "YFJLeftSwipe
 
 @implementation YFJLeftSwipeDeleteTableView
 
-- (id)initWithFrame:(CGRect)frame
+- (id)initWithFrame:(CGRect)frame style:(UITableViewStyle)style
 {
-    self = [super initWithFrame:frame];
+    self = [super initWithFrame:frame style:style];
     if (self) {
         _leftGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swiped:)];
         _leftGestureRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
+        _leftGestureRecognizer.delegate = self;
         [self addGestureRecognizer:_leftGestureRecognizer];
 
         _rightGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swiped:)];
+        _rightGestureRecognizer.delegate = self;
         _rightGestureRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
         [self addGestureRecognizer:_rightGestureRecognizer];
 
         _tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)];
-        [self addGestureRecognizer:_tapGestureRecognizer];
+        _tapGestureRecognizer.delegate = self;
+        // Don't add this yet
 
         _deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _deleteButton.frame = CGRectMake(screenWidth(), 0, kDeleteButtonWidth, kDeleteButtonHeight);
@@ -86,12 +86,17 @@ const static char * kYFJLeftSwipeDeleteTableViewCellIndexPathKey = "YFJLeftSwipe
     return self;
 }
 
+- (id)initWithFrame:(CGRect)frame
+{
+    return [self initWithFrame:frame style:UITableViewStylePlain];
+}
+
 /*
  // Only override drawRect: if you perform custom drawing.
  // An empty implementation adversely affects performance during animation.
  - (void)drawRect:(CGRect)rect
  {
- // Drawing code
+ // drawing code
  }
  */
 
@@ -99,6 +104,10 @@ const static char * kYFJLeftSwipeDeleteTableViewCellIndexPathKey = "YFJLeftSwipe
     NSIndexPath * indexPath = [self cellIndexPathForGestureRecognizer:gestureRecognizer];
     if(indexPath == nil)
         return;
+
+    if(![self.dataSource tableView:self canEditRowAtIndexPath:indexPath]) {
+        return;
+    }
 
     if(gestureRecognizer == _leftGestureRecognizer && ![_editingIndexPath isEqual:indexPath]) {
         UITableViewCell * cell = [self cellForRowAtIndexPath:indexPath];
@@ -111,13 +120,9 @@ const static char * kYFJLeftSwipeDeleteTableViewCellIndexPathKey = "YFJLeftSwipe
 
 - (void)tapped:(UIGestureRecognizer *)gestureRecognizer
 {
-    NSIndexPath * indexPath = [self cellIndexPathForGestureRecognizer:gestureRecognizer];
-    if(indexPath == nil)
-        return;
-
-    if([_editingIndexPath isEqual:indexPath]) {
-        UITableViewCell * cell = [self cellForRowAtIndexPath:indexPath];
-        [self setEditing:NO atIndexPath:indexPath cell:cell];
+    if(_editingIndexPath) {
+        UITableViewCell * cell = [self cellForRowAtIndexPath:_editingIndexPath];
+        [self setEditing:NO atIndexPath:_editingIndexPath cell:cell];
     }
 }
 
@@ -133,6 +138,17 @@ const static char * kYFJLeftSwipeDeleteTableViewCellIndexPathKey = "YFJLeftSwipe
 }
 
 - (void)setEditing:(BOOL)editing atIndexPath:indexPath cell:(UITableViewCell *)cell {
+
+    if(editing) {
+        if(_editingIndexPath) {
+            UITableViewCell * editingCell = [self cellForRowAtIndexPath:_editingIndexPath];
+            [self setEditing:NO atIndexPath:_editingIndexPath cell:editingCell];
+        }
+        [self addGestureRecognizer:_tapGestureRecognizer];
+    } else {
+        [self removeGestureRecognizer:_tapGestureRecognizer];
+    }
+
     CGRect frame = cell.frame;
 
     CGFloat cellXOffset;
@@ -140,10 +156,6 @@ const static char * kYFJLeftSwipeDeleteTableViewCellIndexPathKey = "YFJLeftSwipe
     CGFloat deleteButtonXOffset;
 
     if(editing) {
-        if(_editingIndexPath) {
-            UITableViewCell * editingCell = [self cellForRowAtIndexPath:_editingIndexPath];
-            [self setEditing:NO atIndexPath:_editingIndexPath cell:editingCell];
-        }
         cellXOffset = -kDeleteButtonWidth;
         deleteButtonXOffset = screenWidth() - kDeleteButtonWidth;
         deleteButtonXOffsetOld = screenWidth();
@@ -181,6 +193,11 @@ const static char * kYFJLeftSwipeDeleteTableViewCellIndexPathKey = "YFJLeftSwipe
         CGRect frame = _deleteButton.frame;
         _deleteButton.frame = (CGRect){screenWidth(), frame.origin.y, frame.size.width, kDeleteButtonHeight};
     }];
+}
+
+#pragma mark - UIGestureRecognizerDelegate
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    return NO; // Recognizers of this class are the first priority
 }
 
 @end

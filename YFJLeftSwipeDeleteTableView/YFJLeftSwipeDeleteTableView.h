@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface YFJLeftSwipeDeleteTableView : UITableView
+@interface YFJLeftSwipeDeleteTableView : UITableView <UIGestureRecognizerDelegate>
 
 @end

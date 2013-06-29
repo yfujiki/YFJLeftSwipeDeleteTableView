@@ -45,6 +45,8 @@
     self.tableView.dataSource = self;
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
     [self.view addSubview:self.tableView];
+
+    self.title = @"Example";
 }
 
 
@@ -72,8 +74,7 @@
 {
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-
-    cell.textLabel.text = [NSString stringWithFormat:@"Row %@", _dataArray[indexPath.row]];
+    cell.textLabel.text = [NSString stringWithFormat:@"Data at Row %@", _dataArray[indexPath.row]];
 
     return cell;
 }
@@ -103,7 +104,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return (indexPath.row % 2 == 0) ? 44 : 66;
+    return 44;
 }
 
 /*

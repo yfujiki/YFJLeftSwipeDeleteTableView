@@ -1,15 +1,15 @@
 //
-//  ViewController.m
-//  ViewController+Drawer
+//  ViewController2.m
+//  YFJLeftSwipeDeleteTableView
 //
 //  Created by Yuichi Fujiki on 6/26/13.
 //  Copyright (c) 2013 Yuichi Fujiki. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "ViewController2.h"
 #import "YFJLeftSwipeDeleteTableView.h"
 
-@interface ViewController () {
+@interface ViewController2 () {
     NSMutableArray * _dataArray;
     UIButton * _deleteButton;
     NSIndexPath * _editingIndexPath;
@@ -23,7 +23,7 @@
 
 @end
 
-@implementation ViewController
+@implementation ViewController2
 
 - (id)init
 {
@@ -44,9 +44,17 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
+    [self.tableView setDeleteButtonTitle:@"Archive"];
+
+    ViewController2 * __weak weakSelf = self;
+    [self.tableView setDeleteButtonAction:^(NSIndexPath * indexPath){
+        ViewController2 * strongSelf = weakSelf;
+        NSLog(@"Archived section : %d, row : %d, data : %@", indexPath.section, indexPath.row, strongSelf->_dataArray[indexPath.row]);
+    }];
+
     [self.view addSubview:self.tableView];
 
-    self.title = @"Example";
+    self.title = @"Customize Delete Button Sample";
 }
 
 

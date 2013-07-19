@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "ViewController.h"
+#import "MenuViewController.h"
 
 @implementation AppDelegate
 
@@ -18,7 +18,7 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
 
-    ViewController * viewController = [[ViewController alloc] init];
+    MenuViewController * viewController = [[MenuViewController alloc] init];
     UINavigationController * navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
     self.window.rootViewController = navigationController;
 

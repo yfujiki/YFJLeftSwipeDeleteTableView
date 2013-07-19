@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  ViewController2.h
 //  YFJLeftSwipeDeleteTableView
 //
 //  Created by Yuichi Fujiki on 6/27/13.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface ViewController2 : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
 @end

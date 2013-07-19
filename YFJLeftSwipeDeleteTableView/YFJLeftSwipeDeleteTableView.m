@@ -51,6 +51,8 @@ const static char * kYFJLeftSwipeDeleteTableViewCellIndexPathKey = "YFJLeftSwipe
     NSIndexPath * _editingIndexPath;
 }
 
+@property (nonatomic, copy) void(^deleteActionBlock)(NSIndexPath *);
+
 @end
 
 @implementation YFJLeftSwipeDeleteTableView
@@ -182,6 +184,10 @@ const static char * kYFJLeftSwipeDeleteTableViewCellIndexPathKey = "YFJLeftSwipe
     UIButton * deleteButton = (UIButton *)sender;
     NSIndexPath * indexPath = deleteButton.indexPath;
 
+    if(self.deleteActionBlock) {
+        self.deleteActionBlock(indexPath);
+    }
+
     [self.dataSource tableView:self commitEditingStyle:UITableViewCellEditingStyleDelete forRowAtIndexPath:indexPath];
 
     _editingIndexPath = nil;
@@ -193,6 +199,15 @@ const static char * kYFJLeftSwipeDeleteTableViewCellIndexPathKey = "YFJLeftSwipe
         CGRect frame = _deleteButton.frame;
         _deleteButton.frame = (CGRect){screenWidth(), frame.origin.y, frame.size.width, kDeleteButtonHeight};
     }];
+}
+
+#pragma mark - Customize Delete Button
+- (void) setDeleteButtonTitle:(NSString *)title {
+    [_deleteButton setTitle:title forState:UIControlStateNormal];
+}
+
+- (void) setDeleteButtonAction:(void (^)(NSIndexPath *))deleteAction {
+    self.deleteActionBlock = deleteAction;
 }
 
 #pragma mark - UIGestureRecognizerDelegate

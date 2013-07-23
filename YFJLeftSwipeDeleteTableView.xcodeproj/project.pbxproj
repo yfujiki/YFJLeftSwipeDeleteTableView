@@ -13,6 +13,10 @@
 		806CB3F017990721002C7CB8 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 806CB3EE17990721002C7CB8 /* MenuViewController.m */; };
 		806CB3F317990A73002C7CB8 /* ViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = 806CB3F217990A73002C7CB8 /* ViewController2.m */; };
 		806CB3F417990A73002C7CB8 /* ViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = 806CB3F217990A73002C7CB8 /* ViewController2.m */; };
+		806CB3F717991316002C7CB8 /* UIButton+NSIndexPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 806CB3F617991316002C7CB8 /* UIButton+NSIndexPath.m */; };
+		806CB3F817991316002C7CB8 /* UIButton+NSIndexPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 806CB3F617991316002C7CB8 /* UIButton+NSIndexPath.m */; };
+		806CB3FB179916F5002C7CB8 /* ViewController3.m in Sources */ = {isa = PBXBuildFile; fileRef = 806CB3FA179916F5002C7CB8 /* ViewController3.m */; };
+		806CB3FC179916F5002C7CB8 /* ViewController3.m in Sources */ = {isa = PBXBuildFile; fileRef = 806CB3FA179916F5002C7CB8 /* ViewController3.m */; };
 		80A05121177CB280004E11C0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80A05120177CB280004E11C0 /* Foundation.framework */; };
 		80A05123177CB280004E11C0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80A05122177CB280004E11C0 /* CoreGraphics.framework */; };
 		80A05125177CB280004E11C0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80A05124177CB280004E11C0 /* UIKit.framework */; };
@@ -48,6 +52,10 @@
 		806CB3EE17990721002C7CB8 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
 		806CB3F117990A73002C7CB8 /* ViewController2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController2.h; sourceTree = "<group>"; };
 		806CB3F217990A73002C7CB8 /* ViewController2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController2.m; sourceTree = "<group>"; };
+		806CB3F517991316002C7CB8 /* UIButton+NSIndexPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+NSIndexPath.h"; sourceTree = "<group>"; };
+		806CB3F617991316002C7CB8 /* UIButton+NSIndexPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+NSIndexPath.m"; sourceTree = "<group>"; };
+		806CB3F9179916F5002C7CB8 /* ViewController3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController3.h; sourceTree = "<group>"; };
+		806CB3FA179916F5002C7CB8 /* ViewController3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController3.m; sourceTree = "<group>"; };
 		80A0511D177CB280004E11C0 /* YFJLeftSwipeDeleteTableView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YFJLeftSwipeDeleteTableView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		80A05120177CB280004E11C0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		80A05122177CB280004E11C0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -134,6 +142,8 @@
 				80A05150177CB29A004E11C0 /* YFJLeftSwipeDeleteTableView.m */,
 				806CB3E9179902AE002C7CB8 /* YFJMenuButton.h */,
 				806CB3EA179902AE002C7CB8 /* YFJMenuButton.m */,
+				806CB3F517991316002C7CB8 /* UIButton+NSIndexPath.h */,
+				806CB3F617991316002C7CB8 /* UIButton+NSIndexPath.m */,
 			);
 			path = YFJLeftSwipeDeleteTableView;
 			sourceTree = "<group>";
@@ -176,6 +186,8 @@
 				80A05154177CB2DF004E11C0 /* ViewController1.m */,
 				806CB3F117990A73002C7CB8 /* ViewController2.h */,
 				806CB3F217990A73002C7CB8 /* ViewController2.m */,
+				806CB3F9179916F5002C7CB8 /* ViewController3.h */,
+				806CB3FA179916F5002C7CB8 /* ViewController3.m */,
 				806CB3ED17990721002C7CB8 /* MenuViewController.h */,
 				806CB3EE17990721002C7CB8 /* MenuViewController.m */,
 			);
@@ -279,8 +291,10 @@
 			files = (
 				806CB3F317990A73002C7CB8 /* ViewController2.m in Sources */,
 				80A05131177CB280004E11C0 /* AppDelegate.m in Sources */,
+				806CB3FB179916F5002C7CB8 /* ViewController3.m in Sources */,
 				806CB3EF17990721002C7CB8 /* MenuViewController.m in Sources */,
 				806CB3EB179902AE002C7CB8 /* YFJMenuButton.m in Sources */,
+				806CB3F717991316002C7CB8 /* UIButton+NSIndexPath.m in Sources */,
 				80A0512D177CB280004E11C0 /* main.m in Sources */,
 				80A05155177CB2DF004E11C0 /* ViewController1.m in Sources */,
 				80A05151177CB29A004E11C0 /* YFJLeftSwipeDeleteTableView.m in Sources */,
@@ -297,6 +311,8 @@
 				80A05146177CB281004E11C0 /* YFJLeftSwipeDeleteTableViewTests.m in Sources */,
 				806CB3F017990721002C7CB8 /* MenuViewController.m in Sources */,
 				806CB3F417990A73002C7CB8 /* ViewController2.m in Sources */,
+				806CB3FC179916F5002C7CB8 /* ViewController3.m in Sources */,
+				806CB3F817991316002C7CB8 /* UIButton+NSIndexPath.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

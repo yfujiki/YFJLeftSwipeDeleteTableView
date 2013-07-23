@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@class YFJMenuButton;
+
 @interface YFJLeftSwipeDeleteTableView : UITableView <UIGestureRecognizerDelegate>
 
-//- (void) initWithFrame:(CGRect)frame style:(UITableViewStyle)style otherMenuCells:(NSArray *)menuCells;
-//- (void) initWithFrame:(CGRect)frame otherMenuCells:(NSArray *)menuCells;
+- (id) initWithFrame:(CGRect)frame style:(UITableViewStyle)style secondMenuButton:(YFJMenuButton *)secondMenuButton thirdMenuButton:(YFJMenuButton *)thirdMenuButton;
+- (id) initWithFrame:(CGRect)frame secondMenuButton:(YFJMenuButton *)secondMenuButton thirdMenuButton:(YFJMenuButton *)thirdMenuButton;
 
 - (void) setDeleteButtonTitle:(NSString *)title;
 - (void) setDeleteButtonAction:(void (^)(NSIndexPath *))deleteAction;

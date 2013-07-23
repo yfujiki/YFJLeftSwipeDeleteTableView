@@ -9,10 +9,12 @@
 #import "MenuViewController.h"
 #import "ViewController1.h"
 #import "ViewController2.h"
+#import "ViewController3.h"
 
 NS_ENUM(NSUInteger, YFJ_EXAMPLE_MENU) {
     YFJ_EXAMPLE_MENU_NORMAL = 0,
     YFJ_EXAMPLE_MENU_CUSTOMIZE_DELETE_BUTTON,
+    YFJ_EXAMPLE_MENU_MORE_BUTTONS,
     YFJ_EXAMPLE_MENU_COUNT
 };
 
@@ -71,6 +73,9 @@ NS_ENUM(NSUInteger, YFJ_EXAMPLE_MENU) {
         case YFJ_EXAMPLE_MENU_CUSTOMIZE_DELETE_BUTTON:
             [cell.textLabel setText:@"Customize Delete Button"];
             break;
+        case YFJ_EXAMPLE_MENU_MORE_BUTTONS:
+            [cell.textLabel setText:@"More Than One Button"];
+            break;
         default:
             NSAssert(NO, @"Should not reach here");
             break;
@@ -91,6 +96,12 @@ NS_ENUM(NSUInteger, YFJ_EXAMPLE_MENU) {
         case YFJ_EXAMPLE_MENU_CUSTOMIZE_DELETE_BUTTON:
         {
             ViewController2 * vc = [[ViewController2 alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case YFJ_EXAMPLE_MENU_MORE_BUTTONS:
+        {
+            ViewController3 * vc = [[ViewController3 alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
         }
             break;

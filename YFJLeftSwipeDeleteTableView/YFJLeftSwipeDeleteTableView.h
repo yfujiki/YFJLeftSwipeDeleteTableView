@@ -8,6 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol YFJLeftSwipeDeleteTableViewDelegate <NSObject>
+
+@required
+- (BOOL) yfjTableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath;
+
+@end
+
 @interface YFJLeftSwipeDeleteTableView : UITableView <UIGestureRecognizerDelegate>
+
+@property (weak) id <YFJLeftSwipeDeleteTableViewDelegate> yfjDelegate;
 
 @end

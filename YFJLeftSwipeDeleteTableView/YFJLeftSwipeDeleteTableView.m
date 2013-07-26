@@ -47,6 +47,7 @@ const static char * kYFJLeftSwipeDeleteTableViewCellIndexPathKey = "YFJLeftSwipe
     UITapGestureRecognizer * _tapGestureRecognizer;
 
     UIButton * _deleteButton;
+    UIButton *_oldDeleteButton;
 
     NSIndexPath * _editingIndexPath;
 }
@@ -55,33 +56,52 @@ const static char * kYFJLeftSwipeDeleteTableViewCellIndexPathKey = "YFJLeftSwipe
 
 @implementation YFJLeftSwipeDeleteTableView
 
+- (void) awakeFromNib
+{
+    [super awakeFromNib];
+    
+    _leftGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swiped:)];
+    _leftGestureRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
+    _leftGestureRecognizer.delegate = self;
+    [self addGestureRecognizer:_leftGestureRecognizer];
+    
+    _rightGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swiped:)];
+    _rightGestureRecognizer.delegate = self;
+    _rightGestureRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
+    [self addGestureRecognizer:_rightGestureRecognizer];
+    
+    _tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)];
+    _tapGestureRecognizer.delegate = self;
+    // Don't add this yet
+    
+    _deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _deleteButton.frame = CGRectMake(screenWidth(), 0, kDeleteButtonWidth, kDeleteButtonHeight);
+    _deleteButton.backgroundColor = [UIColor redColor];
+    _deleteButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    _deleteButton.showsTouchWhenHighlighted = NO;
+    _deleteButton.adjustsImageWhenHighlighted = NO;
+    [_deleteButton setTitle:@"Delete" forState:UIControlStateNormal];
+    [_deleteButton addTarget:self action:@selector(deleteItem:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:_deleteButton];
+    
+    _oldDeleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _oldDeleteButton.frame = CGRectMake(screenWidth(), 0, kDeleteButtonWidth, kDeleteButtonHeight);
+    _oldDeleteButton.backgroundColor = [UIColor redColor];
+    _oldDeleteButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    _oldDeleteButton.showsTouchWhenHighlighted = NO;
+    _oldDeleteButton.adjustsImageWhenHighlighted = NO;
+    [_oldDeleteButton setTitle:@"Delete" forState:UIControlStateNormal];
+    [_oldDeleteButton setImage:[UIImage imageNamed:@"SwipeToDeleteIcon"] forState:UIControlStateNormal];
+    [self addSubview:_oldDeleteButton];
+    
+    [self setAutoresizingMask:UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth];
+}
+
 - (id)initWithFrame:(CGRect)frame style:(UITableViewStyle)style
 {
     self = [super initWithFrame:frame style:style];
     if (self) {
-        _leftGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swiped:)];
-        _leftGestureRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
-        _leftGestureRecognizer.delegate = self;
-        [self addGestureRecognizer:_leftGestureRecognizer];
-
-        _rightGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swiped:)];
-        _rightGestureRecognizer.delegate = self;
-        _rightGestureRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
-        [self addGestureRecognizer:_rightGestureRecognizer];
-
-        _tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)];
-        _tapGestureRecognizer.delegate = self;
-        // Don't add this yet
-
-        _deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _deleteButton.frame = CGRectMake(screenWidth(), 0, kDeleteButtonWidth, kDeleteButtonHeight);
-        _deleteButton.backgroundColor = [UIColor redColor];
-        _deleteButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-        [_deleteButton setTitle:@"Delete" forState:UIControlStateNormal];
-        [_deleteButton addTarget:self action:@selector(deleteItem:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:_deleteButton];
-
-        [self setAutoresizingMask:UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth];
+        [self awakeFromNib];
     }
     return self;
 }
@@ -105,8 +125,10 @@ const static char * kYFJLeftSwipeDeleteTableViewCellIndexPathKey = "YFJLeftSwipe
     if(indexPath == nil)
         return;
 
-    if(![self.dataSource tableView:self canEditRowAtIndexPath:indexPath]) {
-        return;
+    if([self.yfjDelegate respondsToSelector:@selector(yfjTableView:canEditRowAtIndexPath:)])
+    {
+        if(![self.yfjDelegate yfjTableView:self canEditRowAtIndexPath:indexPath])
+            return;
     }
 
     if(gestureRecognizer == _leftGestureRecognizer && ![_editingIndexPath isEqual:indexPath]) {
@@ -154,6 +176,7 @@ const static char * kYFJLeftSwipeDeleteTableViewCellIndexPathKey = "YFJLeftSwipe
     CGFloat cellXOffset;
     CGFloat deleteButtonXOffsetOld;
     CGFloat deleteButtonXOffset;
+    CGFloat cellHeight = [self.delegate tableView:self heightForRowAtIndexPath:indexPath];
 
     if(editing) {
         cellXOffset = -kDeleteButtonWidth;
@@ -165,9 +188,12 @@ const static char * kYFJLeftSwipeDeleteTableViewCellIndexPathKey = "YFJLeftSwipe
         deleteButtonXOffset = screenWidth();
         deleteButtonXOffsetOld = screenWidth() - kDeleteButtonWidth;
         _editingIndexPath = nil;
+        _oldDeleteButton.frame = (CGRect) {deleteButtonXOffsetOld, frame.origin.y, _deleteButton.frame.size.width, cellHeight};
+        [UIView animateWithDuration:.2f animations:^{
+            _oldDeleteButton.frame = (CGRect) {screenWidth(), frame.origin.y, _deleteButton.frame.size.width, cellHeight};
+        }];
     }
 
-    CGFloat cellHeight = [self.delegate tableView:self heightForRowAtIndexPath:indexPath];
     _deleteButton.frame = (CGRect) {deleteButtonXOffsetOld, frame.origin.y, _deleteButton.frame.size.width, cellHeight};
     _deleteButton.indexPath = indexPath;
 
